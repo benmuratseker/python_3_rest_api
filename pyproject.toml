@@ -6,8 +6,8 @@ authors = ["Reindert-Jan Ekker <info@codesensei.nl>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-fastapi = {extras = ["all"], version = "^0.103.1"}
+python = "^3.13"
+fastapi = {extras = ["all"], version = "^0.115.8"}
 sqlalchemy = "^2.0.20"
 
 
