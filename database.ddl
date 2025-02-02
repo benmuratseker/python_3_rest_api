@@ -11,4 +11,4 @@ create table event
     date DATE not null,
     price NUMERIC not null,
     category_id INTEGER not null references category
-)
+);
