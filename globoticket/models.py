@@ -12,6 +12,7 @@ class DBCategory(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(unique=True)
+    events: Mapped[list["DBEvent"]] = relationship(back_populates="category")#many-to-one
 
 
 class DBEvent(Base):
@@ -22,7 +23,7 @@ class DBEvent(Base):
     date: Mapped[date]
     price: Mapped[decimal.Decimal]
     category_id: Mapped[int] = mapped_column(ForeignKey("category.id"))
-    category: Mapped[DBCategory] = relationship()
+    category: Mapped["DBCategory"] = relationship(back_populates="events")
 
     def __str__(self):
         return f"{self.id}: {self.product_code:10} {self.category.name:10} {self.date} ${self.price}"
@@ -30,7 +31,8 @@ class DBEvent(Base):
 
 session = SessionLocal()
 results = session.execute(select(DBCategory)).scalars()
-print("\n".join(category.name for category in results))
+# print("\n".join(category.name for category in results))
+print("\n".join(f"{category.name}: {len(category.events)}" for category in results))
 
-results = session.execute(select(DBEvent)).scalars()
-print("\n".join(str(event) for event in results))
+# results = session.execute(select(DBEvent)).scalars()
+# print("\n".join(str(event) for event in results))
